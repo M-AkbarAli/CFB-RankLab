@@ -4,25 +4,35 @@ Main Streamlit application for CFP Predictor.
 This is the entry point for the web application.
 """
 
+import sys
+from pathlib import Path
+from dotenv import load_dotenv
+
+# Add project root to Python path
+project_root = Path(__file__).parent.parent.parent
+sys.path.insert(0, str(project_root))
+
+# Load environment variables from .env file
+load_dotenv(project_root / ".env")
+
 import streamlit as st
 import pandas as pd
-from pathlib import Path
 from typing import Dict, Optional
 
-from .utils import (
+from src.app.utils import (
     load_current_season_data,
     get_current_week,
     run_simulation
 )
-from .components.game_selector import game_selector, conference_championship_selector
-from .components.rankings import (
+from src.app.components.game_selector import game_selector, conference_championship_selector
+from src.app.components.rankings import (
     display_rankings, 
     display_rankings_comparison,
     display_team_resume,
     display_team_comparison,
     display_feature_importance
 )
-from .components.bracket import display_bracket, display_playoff_summary
+from src.app.components.bracket import display_bracket, display_playoff_summary
 
 # Page configuration
 st.set_page_config(
